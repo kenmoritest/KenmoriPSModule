@@ -1,6 +1,4 @@
-﻿
-Add-Type -Assembly System.Web
-
+﻿Add-Type -Assembly System.Web
 function Encode-Url
 {
   param(
@@ -91,6 +89,5 @@ function Convert-HashesToPSObjects
    $InputObject
   )
   process { $InputObject |% { Convert-HashToPSObject $_ } }
-
 }
 
