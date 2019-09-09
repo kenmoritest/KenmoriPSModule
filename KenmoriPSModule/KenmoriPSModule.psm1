@@ -49,6 +49,15 @@ function Decode-SafeLinks
   return (Parse-QueryString $InputObject)["url"]
 }
 
+function Decode-JsonString
+{
+  param(
+    [parameter(Mandatory=$true, Position=0, ValueFromPipeLine=$true)]
+    $InputObject
+  )
+  return (ConvertFrom-Json -InputObject ("{ ""Data"": """ + $InputObject + """}")).Data
+}
+
 function Parse-QueryString
 {
   param(

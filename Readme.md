@@ -27,6 +27,9 @@ This is a command to parse QueryString of the HTML.
 ### Decode-SafeLinks
 This is a command to decode SafeLinks generated in Outlook Client.
 
+### Decode-JsonString
+This is a command to decode Json String.
+
 ### Convert-HashToPSObject
 This is a command to convert the hash to PSObject.
 
