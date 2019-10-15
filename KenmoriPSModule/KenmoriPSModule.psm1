@@ -91,3 +91,64 @@ function Convert-HashesToPSObjects
   process { $InputObject |% { Convert-HashToPSObject $_ } }
 }
 
+function Encode-Base64String
+{
+  param(
+    [parameter(Mandatory=$true, Position=0, ValueFromPipeLine=$true)]
+    $InputStr,
+    [parameter(Mandatory=$false, Position=1)]
+    $Encode
+  )
+  
+  if ($Encode)
+  {
+    $enc = [System.Text.Encoding]::GetEncoding($Encode)
+  }
+  else
+  {
+    $enc = [System.Text.Encoding]::Default 
+  }
+  return [System.Convert]::ToBase64String($enc.GetBytes($InputStr))
+}
+
+function Decode-Base64String
+{
+  param(
+    [parameter(Mandatory=$true, Position=0, ValueFromPipeLine=$true)]
+    $InputStr,
+    [parameter(Mandatory=$false, Position=1)]
+    $Encode
+  )
+  
+  if ($Encode)
+  {
+    $enc = [System.Text.Encoding]::GetEncoding($Encode)
+  }
+  else
+  {
+    $enc = [System.Text.Encoding]::Default 
+  }
+  return $enc.GetString([System.Convert]::FromBase64String($InputStr))
+}
+
+function Encode-Base64Binary
+{
+  param(
+    [parameter(Mandatory=$true, Position=0, ValueFromPipeLine=$true)]
+    $InputFile,
+    [parameter(Mandatory=$true, Position=1)]
+    $OutFile
+  )
+  ([System.Convert]::ToBase64String((Get-Content $InputFile -Encoding Byte))) | Set-Content $OutFile
+}
+
+function Decode-Base64Binary
+{
+  param(
+    [parameter(Mandatory=$true, Position=0, ValueFromPipeLine=$true)]
+    $InputFile,
+    [parameter(Mandatory=$true, Position=1)]
+    $OutFile
+  )
+  ([System.Convert]::FromBase64String((Get-Content $InputFile))) | Set-Content $OutFile -Encoding Byte
+}
